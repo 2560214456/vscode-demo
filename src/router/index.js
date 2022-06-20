@@ -54,6 +54,122 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
+  // 讲师管理路由
+  {
+    path: '/teacher',
+    component: Layout, // 布局
+    redirect: '/teacher/table',
+    name: '讲师管理',
+    meta: { title: '讲师管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: '讲师列表',
+        component: () => import('@/views/edu/teacher/list'), // 点击讲师列表显示页面 @/ = ./ 表示当前路径
+        meta: { title: '讲师列表', icon: 'table' }
+      },
+      {
+        path: 'save',
+        name: '添加讲师',
+        component: () => import('@/views/edu/teacher/save'),
+        meta: { title: '添加讲师', icon: 'tree' }
+      },
+      {
+        path: 'save/:id',
+        name: 'EduTeacherEdit',
+        component: () => import('@/views/edu/teacher/save'),
+        meta: {title: '修改讲师',noCache: true},
+        hidden: true // 默认不显示这个路由
+      }
+    ]
+  },
+    //  课程分类管理路由
+  {
+    path: '/subject',
+    component: Layout, // 布局
+    redirect: '/subject/list',
+    name: '课程分类管理',
+    meta: { title: '课程分类管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: '课程分类列表',
+        component: () => import('@/views/edu/subject/list'), // 点击讲师列表显示页面 @/ = ./ 表示当前路径
+        meta: { title: '课程分类列表', icon: 'table' }
+      },
+      {
+        path: 'save',
+        name: '添加课程分类',
+        component: () => import('@/views/edu/subject/save'),
+        meta: { title: '添加课程分类', icon: 'tree' }
+      }
+    ]
+  },
+      //  课程分类管理路由
+      {
+        path: '/course',
+        component: Layout, // 布局
+        redirect: '/subject/list',
+        name: '课程列表',
+        meta: { title: '课程列表', icon: 'el-icon-s-help' },
+        children: [
+          {
+            path: 'info',
+            name: '添加课程',
+            component: () => import('@/views/edu/course/info'), // 点击讲师列表显示页面 @/ = ./ 表示当前路径
+            meta: { title: '添加课程', icon: 'table' }
+          },
+          {
+            path: 'list',
+            name: '课程列表',
+            component: () => import('@/views/edu/course/list'),
+            meta: { title: '课程列表', icon: 'tree' }
+          },
+          {
+            path: 'info/:id',
+            name: '添加课程基本信息',
+            component: () => import('@/views/edu/course/info'),
+            meta: { title: '编辑课程基本信息', icon: 'tree' },
+            hidden: true // 隐藏路由 ，做页面跳转
+          },
+          {
+            path: 'chapter/:id',
+            name: '添加课程基本信息',
+            component: () => import('@/views/edu/course/chapter'),
+            meta: { title: '编辑课程大纲', icon: 'tree' },
+            hidden: true
+          },
+          {
+            path: 'publish/:id',
+            name: '发布课程',
+            component: () => import('@/views/edu/course/publish'),
+            meta: { title: '发布课程', icon: 'tree' },
+            hidden: true
+          }
+        ]
+      },
+      //  统计路由
+      {
+        path: '/statistics/daily',
+        component: Layout, // 布局
+        redirect: '/subject/list', //
+        name: 'Statistics',
+        meta: { title: '统计分析', icon: 'el-icon-s-help' },
+        children: [
+          {
+            path: 'create',
+            name: '生成统计',
+            component: () => import('@/views/sta/create'), // 点击讲师列表显示页面 @/ = ./ 表示当前路径
+            meta: { title: '生成统计', icon: 'table' }
+          },
+          {
+            path: 'list',
+            name: '统计图',
+            component: () => import('@/views/sta/statistics'),
+            meta: { title: '统计图', icon: 'tree' }
+          }
+        ]
+      },
 
   {
     path: '/example',
@@ -65,7 +181,7 @@ export const constantRoutes = [
       {
         path: 'table',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/table/index'), // 点击路径显示页面 @ = ./ 表示当前路径
         meta: { title: 'Table', icon: 'table' }
       },
       {
@@ -76,6 +192,7 @@ export const constantRoutes = [
       }
     ]
   },
+
 
   {
     path: '/form',

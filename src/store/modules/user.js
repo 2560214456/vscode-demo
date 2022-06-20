@@ -48,7 +48,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         const { data } = response
-
+        //判断返回的时候是一个空的数组
         if (!data) {
           return reject('Verification failed, please Login again.')
         }

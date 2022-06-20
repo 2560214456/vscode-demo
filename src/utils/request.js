@@ -3,14 +3,14 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-// create an axios instance
+// 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url 默认的访问路径，在.end.development文件中
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000 // 5000 请求超时事件
 })
 
-// request interceptor
+// request 拦截器
 service.interceptors.request.use(
   config => {
     // do something before request is sent
@@ -18,7 +18,7 @@ service.interceptors.request.use(
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
+      // 让每个请求携带自定义token 请根据实际情况
       config.headers['X-Token'] = getToken()
     }
     return config
@@ -45,7 +45,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    // if the custom code is not 20000, it is judged as an error.
+    // 如果自定义状态码不是20000，则判断为错误。.
     if (res.code !== 20000) {
       Message({
         message: res.message || 'Error',
@@ -54,6 +54,7 @@ service.interceptors.response.use(
       })
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
+      //50008：非法令牌； 50012：其他客户端登录； 50014：令牌过期；
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         // to re-login
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
